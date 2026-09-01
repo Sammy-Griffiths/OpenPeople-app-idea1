@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Chemical levels</h1>
+{% if levels %}
+<ul>
+    {% for chemical in levels %}
+
+        <li>{{ chemical.location }}: {{ chemical.label }}: {{ chemical.number }}:
+
+        <progress value="{{ chemical.weight }}" max="{% if chemical.number == 8 %}0.5{% else %}18.9{% endif %}"></progress>
+        </li>
+
+
+    {% endfor %}
+</ul>
+{% else %}
+<p>No chemicals added yet. Add them in the <a href="/admin/">Django admin</a>.</p>
+{% endif %}
+
+{% endblock %}
