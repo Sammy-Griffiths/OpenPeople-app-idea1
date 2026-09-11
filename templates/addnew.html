@@ -1,29 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Product Setup</title>
-</head>
-<body>
-<h1>Add a new product to the system.</h1>
+{% extends "base.html" %}
 
-<form method="post" action=" ">
+{% block title %}New Product Setup{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Add a new product to the system.</h1>
+
+<form method="post" action="">
     {% csrf_token %}
-    {{ form.add_c }}
-    <input type="text" name="product_name" maxlength="100" required>
 
-    <input type="float" name="product_location" maxlength="100" required>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
 
-    <input type="float" name="volume_amount" maxlength="100" required>
+    <div class="form-group">
+        <label for="{{ form.product_name.id_for_label }}">Product name</label>
+        {{ form.product_name }}
+        {% if form.product_name.errors %}
+            <div class="text-danger">{{ form.product_name.errors }}</div>
+        {% endif %}
+    </div>
 
-    <input type="float" name="volume_units" maxlength="100" required>
+    <div class="form-group">
+        <label for="{{ form.product_location.id_for_label }}">Product location</label>
+        {{ form.product_location }}
+        {% if form.product_location.errors %}
+            <div class="text-danger">{{ form.product_location.errors }}</div>
+        {% endif %}
+    </div>
 
-    <input type="float" name="density" maxlength="100" required>
+    <div class="form-group">
+        <label for="{{ form.volume_amount.id_for_label }}">Volume amount</label>
+        {{ form.volume_amount }}
+        <small class="form-text text-muted">Up to 6 digits with 2 decimal places (e.g. 1280.00)</small>
+        {% if form.volume_amount.errors %}
+            <div class="text-danger">{{ form.volume_amount.errors }}</div>
+        {% endif %}
+    </div>
 
+    <div class="form-group">
+        <label for="{{ form.volume_unit.id_for_label }}">Volume unit</label>
+        {{ form.volume_unit }}
+        {% if form.volume_unit.errors %}
+            <div class="text-danger">{{ form.volume_unit.errors }}</div>
+        {% endif %}
+    </div>
 
-    <button type="submit">save</button>
+    <div class="form-group">
+        <label for="{{ form.density.id_for_label }}">Density</label>
+        {{ form.density }}
+        <small class="form-text text-muted">Up to 3 digits with 2 decimal places (e.g. 1.25)</small>
+        {% if form.density.errors %}
+            <div class="text-danger">{{ form.density.errors }}</div>
+        {% endif %}
+    </div>
 
+    <button type="submit" class="btn btn-primary">save</button>
 </form>
-
-</body>
-</html>
+{% endblock %}
