@@ -1,4 +1,12 @@
-{% extends 'base.html' %} {% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Chemical Levels</title>
+    <meta charset="UTF-8">
+</head>
+
+
+<body>
 <h1>Chemical levels</h1>
 {% if levels %}
 <ul>
@@ -16,4 +24,4 @@
 <p>No chemicals added yet. Add them in the <a href="/admin/">Django admin</a>.</p>
 {% endif %}
 
-{% endblock %}
+</body>

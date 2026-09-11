@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Chemical Setup</title>
+</head>
+<body>
+<h1>Add a new chemical to the system.</h1>
+
+<form method="post" action=" ">
+    {% csrf_token %}
+    {{ form.add_c }}
+    <input type="text" name="name" maxlength="100" required>
+    <button type="submit">save</button>
+</form>
+
+</body>
+</html>
