@@ -11,8 +11,8 @@ RESTAURANT_LOCATIONS = [
 
 UNIT_OF_PRODUCT = [
     (0, 'Liters'),
-    1: Decimal('3.78541'),    # Gallons (US) to liters
-    2: Decimal('0.001'),      # Milliliters to liters
+    (1, 'Gallons'),
+    (2, 'Milliliters'),
 ]
 
 PRODUCT_COLORS = [
