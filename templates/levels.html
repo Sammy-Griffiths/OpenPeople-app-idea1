@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Product Levels{% endblock %}
 
@@ -14,17 +14,17 @@
                     <li>Product location: {{ product.get_product_location_display }}</li>
                     <li>Volume amount: {{ product.volume_amount }}</li>
                     <li>Volume unit: {{ product.get_volume_unit_display }}</li>
-                    <li>Volume in liters: {{ product.volume_amount_L }}</li>
+                    <li>Volume in liters: {{ product.volume_amount_l }}</li>
                     <li>Density: {{ product.density }}</li>
                     <li>Color: {{ product.get_color_display }}</li>
-                    <li>Actual weight (kg): {{ product.actual_weight_KG }}</li>
+                    <li>Actual weight (kg): {{ product.actual_weight_kg }}</li>
                     <li>Current weight (kg): {{ product.current_weight_kg }}</li>
                 </ul>
             </div>
             <progress
                 class="color-{{ product.color_css }}"
                 value="{{ product.current_weight_kg }}"
-                max="{{ product.actual_weight_KG }}"
+                max="{{ product.actual_weight_kg }}"
             ></progress>
         </li>
     {% endfor %}

@@ -11,8 +11,8 @@ RESTAURANT_LOCATIONS = [
 
 UNIT_OF_PRODUCT = [
     (0, 'Liters'),
-    (1, 'Gallons'),
-    (2, 'Milliliters'),
+    1: Decimal('3.78541'),    # Gallons (US) to liters
+    2: Decimal('0.001'),      # Milliliters to liters
 ]
 
 PRODUCT_COLORS = [
@@ -38,8 +38,8 @@ container_weight = {
 # How many liters are in one unit of each volume_unit choice.
 LITERS_PER_UNIT = {
     0: Decimal('1'),          # Liters
-    1: Decimal('3.78541'),    # Gallons (US) → liters
-    2: Decimal('0.001'),      # Milliliters → liters
+    1: Decimal('3.78541'),    # Gallons (US) to liters
+    2: Decimal('0.001'),      # Milliliters to liters
 }
 
 
@@ -52,7 +52,7 @@ class Product(models.Model):
     volume_unit = models.IntegerField(choices=UNIT_OF_PRODUCT, default=0)
     density = models.DecimalField(max_digits=3, decimal_places=2, default=1)
     color = models.IntegerField(choices=PRODUCT_COLORS, default=0)
-    # Live scale weight; not on add form. Starts as actual_weight_KG; control panel later.
+    # Live scale weight; not on add form. Starts as actual_weight_kg; control panel later.
     current_weight_kg = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     class Meta:
@@ -69,17 +69,17 @@ class Product(models.Model):
         return self.get_color_display().lower()
 
     @property
-    def volume_amount_L(self):
+    def volume_amount_l(self):
         """Convert stored volume_amount into liters."""
         factor = LITERS_PER_UNIT.get(self.volume_unit, Decimal('1'))
         return Decimal(self.volume_amount) * factor
 
     @property
-    def actual_weight_KG(self):
+    def actual_weight_kg(self):
         """
-        actual_weight_KG = (volume_amount_L * density) + container_weight[volume_amount_L]
+        actual_weight_kg = (volume_amount_l * density) + container_weight[volume_amount_l]
         """
-        liters = self.volume_amount_L
+        liters = self.volume_amount_l
         key = int(liters) if liters == int(liters) else float(liters)
         empty_kg = Decimal(str(container_weight.get(key, container_weight.get(int(liters), 0))))
         return (liters * Decimal(self.density)) + empty_kg

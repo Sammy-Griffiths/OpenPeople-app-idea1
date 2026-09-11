@@ -1,4 +1,4 @@
-﻿from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from .forms import ProductForm
 from .models import Product
@@ -10,7 +10,7 @@ def add_product(request):
         if form.is_valid():
             product = form.save(commit=False)
             # Not on the add form — start full: current == actual
-            product.current_weight_kg = product.actual_weight_KG
+            product.current_weight_kg = product.actual_weight_kg
             product.save()
             return redirect('levels')
     else:
