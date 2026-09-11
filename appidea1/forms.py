@@ -1,7 +1,7 @@
 from django import forms
-from .models import AddChemical
+from .models import AddProduct
 
-class AddChemicalForm(forms.ModelForm):
+class AddProductForm(forms.ModelForm):
     class Meta:
-        model = AddChemical
-        fields = ['name']
+        model = AddProduct
+        fields = ['product_name','product_location', 'volume_amount', 'volume_unit', 'density']

@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from .forms import AddChemicalForm
+from .forms import AddProductForm
 from .models import ChemicalLevels
 
 # Create your views here.
 
-def add_chemical(request):
+def add_product(request):
     if request.method == 'POST':
-        form = AddChemicalForm(request.POST)
+        form = AddProductForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("add_chemical")
     else:
-        form = AddChemicalForm()
+        form = AddProductForm()
 
     return render(request, 'addnew.html', {'form': form})
 

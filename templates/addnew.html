@@ -2,16 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Chemical Setup</title>
+    <title>New Product Setup</title>
 </head>
 <body>
-<h1>Add a new chemical to the system.</h1>
+<h1>Add a new product to the system.</h1>
 
 <form method="post" action=" ">
     {% csrf_token %}
     {{ form.add_c }}
-    <input type="text" name="name" maxlength="100" required>
+    <input type="text" name="product_name" maxlength="100" required>
+
+    <input type="float" name="product_location" maxlength="100" required>
+
+    <input type="float" name="volume_amount" maxlength="100" required>
+
+    <input type="float" name="volume_units" maxlength="100" required>
+
+    <input type="float" name="density" maxlength="100" required>
+
+
     <button type="submit">save</button>
+
 </form>
 
 </body>
