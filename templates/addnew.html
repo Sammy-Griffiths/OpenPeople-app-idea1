@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block title %}New Product Setup{% endblock %}
 
@@ -51,6 +51,14 @@
         <small class="form-text text-muted">Up to 3 digits with 2 decimal places (e.g. 1.25)</small>
         {% if form.density.errors %}
             <div class="text-danger">{{ form.density.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.color.id_for_label }}">Color</label>
+        {{ form.color }}
+        {% if form.color.errors %}
+            <div class="text-danger">{{ form.color.errors }}</div>
         {% endif %}
     </div>
 

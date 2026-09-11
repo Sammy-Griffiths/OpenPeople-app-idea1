@@ -1,16 +1,17 @@
-from django import forms
-from .models import AddProduct
+﻿from django import forms
+from .models import Product
 
 
-class AddProductForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
-        model = AddProduct
+        model = Product
         fields = [
             'product_name',
             'product_location',
             'volume_amount',
             'volume_unit',
             'density',
+            'color',
         ]
         widgets = {
             'product_name': forms.TextInput(
@@ -41,5 +42,8 @@ class AddProductForm(forms.ModelForm):
                     'min': '0',
                     'placeholder': '1.25',
                 }
+            ),
+            'color': forms.Select(
+                attrs={'class': 'form-control'}
             ),
         }

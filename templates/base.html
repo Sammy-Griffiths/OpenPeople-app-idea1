@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,28 +8,30 @@
         Django App
       {% endblock %}
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  rel="stylesheet" />
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">My Django App</a>
+      <a class="navbar-brand" href="{% url 'add_product' %}">My Django App</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/addnew/">Home</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_product' %}">New Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/levels/">Chemical Levels</a>
+            <a class="nav-link" href="{% url 'levels' %}">Product Levels</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="{% url 'control_panel' %}">Test</a>
           </li>
         </ul>
       </div>
     </nav>
-    <div class="container">{% block content %} {% endblock %}</div>
+    <div class="container">{% block content %}{% endblock %}</div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

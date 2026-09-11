@@ -1,27 +1,35 @@
-{% load static %}
-<head>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <title>Chemical Levels</title>
-    <meta charset="UTF-8">
-</head>
+﻿{% extends "base.html" %}
 
+{% block title %}Product Levels{% endblock %}
 
-<body>
-<h1>Chemical levels</h1>
-{% if levels %}
+{% block content %}
+<h1 class="mt-4">Product levels</h1>
+{% if products %}
 <ul>
-    {% for chemical in levels %}
-
-        <li>{{ chemical.location }}: {{ chemical.label }}: {{ chemical.number }}:
-
-        <progress value="{{ chemical.weight }}" max="{% if chemical.number == 8 %}0.5{% else %}18.9{% endif %}"></progress>
+    {% for product in products %}
+        <li class="level-item color-{{ product.color_css }}">
+            <div class="level-label">
+                <strong>{{ product.product_name }}</strong>
+                <ul class="level-details">
+                    <li>Product location: {{ product.get_product_location_display }}</li>
+                    <li>Volume amount: {{ product.volume_amount }}</li>
+                    <li>Volume unit: {{ product.get_volume_unit_display }}</li>
+                    <li>Volume in liters: {{ product.volume_amount_L }}</li>
+                    <li>Density: {{ product.density }}</li>
+                    <li>Color: {{ product.get_color_display }}</li>
+                    <li>Actual weight (kg): {{ product.actual_weight_KG }}</li>
+                    <li>Current weight (kg): {{ product.current_weight_kg }}</li>
+                </ul>
+            </div>
+            <progress
+                class="color-{{ product.color_css }}"
+                value="{{ product.current_weight_kg }}"
+                max="{{ product.actual_weight_KG }}"
+            ></progress>
         </li>
-
-
     {% endfor %}
 </ul>
 {% else %}
-<p>No chemicals added yet. Add them in the <a href="/admin/">Django admin</a>.</p>
+<p>No products yet. <a href="{% url 'add_product' %}">Add a new product</a>.</p>
 {% endif %}
-
-</body>
+{% endblock %}

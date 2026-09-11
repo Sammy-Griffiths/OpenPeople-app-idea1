@@ -1,10 +1,15 @@
 from django.contrib import admin
-from .models import ChemicalLevels
+from .models import Product
 
-# Register your models here.
 
-@admin.register(ChemicalLevels)
-class ChemicalLevelsAdmin(admin.ModelAdmin):
-    list_display = ('location', 'label', 'number', 'weight')
-
-# next things to add would be inputting data and css
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = (
+        'product_name',
+        'product_location',
+        'volume_amount',
+        'volume_unit',
+        'density',
+        'color',
+        'current_weight_kg',
+    )

@@ -1,0 +1,31 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Test — Control Panel{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Control panel</h1>
+<p class="text-muted">
+    Later you will adjust each product&rsquo;s <code>current_weight_kg</code> here.
+    For now this page is a placeholder so the <strong>Test</strong> nav link works.
+</p>
+
+<form method="post" action="{% url 'clear_database' %}" class="mb-4"
+      onsubmit="return confirm('Delete ALL products? This cannot be undone.');">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Clear database</button>
+</form>
+
+{% if products %}
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.product_name }} —
+            current {{ product.current_weight_kg }} kg /
+            actual {{ product.actual_weight_KG }} kg
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No products yet. <a href="{% url 'add_product' %}">Add a new product</a>.</p>
+{% endif %}
+{% endblock %}

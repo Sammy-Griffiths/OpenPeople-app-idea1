@@ -1,24 +1,40 @@
-from django.shortcuts import render, redirect
-from .forms import AddProductForm
-from .models import ChemicalLevels
+﻿from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+from .forms import ProductForm
+from .models import Product
 
-# Create your views here.
 
 def add_product(request):
     if request.method == 'POST':
-        form = AddProductForm(request.POST)
+        form = ProductForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("add_chemical")
+            product = form.save(commit=False)
+            # Not on the add form — start full: current == actual
+            product.current_weight_kg = product.actual_weight_KG
+            product.save()
+            return redirect('levels')
     else:
-        form = AddProductForm()
+        form = ProductForm()
 
     return render(request, 'addnew.html', {'form': form})
 
+
 def home(request):
-    return render(request, 'base.html')
+    return redirect('add_product')
+
 
 def levels(request):
-    items = ChemicalLevels.objects.all().order_by('location', 'number')
-    return render(request, 'levels.html', {'levels': items})
+    products = Product.objects.all().order_by('product_location', 'product_name')
+    return render(request, 'levels.html', {'products': products})
 
+
+def control_panel(request):
+    products = Product.objects.all().order_by('product_location', 'product_name')
+    return render(request, 'controlpanel.html', {'products': products})
+
+
+@require_POST
+def clear_database(request):
+    """Wipe all products (keeps empty tables / migrations)."""
+    Product.objects.all().delete()
+    return redirect('control_panel')
